@@ -24,3 +24,8 @@ The zkSNARK proving system consists in:
 ```javascript
 	await smst.verifyProof(proof, publicSignals)
 ```
+
+
+#### To do
+
+- [ ] Remove zk kit from package json once I create a new npm package for it that support smt
