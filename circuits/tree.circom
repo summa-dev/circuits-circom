@@ -6,18 +6,26 @@ include "../node_modules/circomlib/circuits/poseidon.circom";
 include "../node_modules/circomlib/circuits/mux1.circom";
 
 template MerkleTreeInclusionProof(nLevels) {
-    signal input leaf;
+    signal input rootHash;
+    signal input rootSum;
+    signal input leafHash;
+    signal input leafSum;
     signal input pathIndices[nLevels];
-    signal input siblings[nLevels];
-    signal input root;
+    signal input siblingsHashes[nLevels];
+    signal input siblingsSums[nLevels];
 
     component poseidons[nLevels];
     component mux[nLevels];
 
+    // Create array of hashes and sums to store progressive hashes and sums of the computation
     signal hashes[nLevels + 1];
-    hashes[0] <== leaf;
+    signal sums[nLevels + 1];
+
+    hashes[0] <== leafHash;
+    sums[0] <== leafSum;
 
     for (var i = 0; i < nLevels; i++) {
+        // Check that the path indices are either 0 or 1
         pathIndices[i] * (1 - pathIndices[i]) === 0;
 
         poseidons[i] = Poseidon(2);
