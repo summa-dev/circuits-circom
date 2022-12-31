@@ -22,6 +22,8 @@ describe("Tree Testing", function async() {
             tree.insert(BigInt(i), BigInt(i + 1))
         }
 
+        assert.equal(tree.root.sum, BigInt(55))
+
         // Create proof of inclusion for leaf 5
         const proof = tree.createProof(5)
 

@@ -5,8 +5,10 @@ include "../node_modules/circomlib/circuits/poseidon.circom";
 include "../node_modules/circomlib/circuits/mux1.circom";
 
 template MerkleTreeInclusionProof(nLevels) {
+
     signal input rootHash;
     signal input rootSum;
+
     signal input leafHash;
     signal input leafSum;
     signal input pathIndices[nLevels];
@@ -46,9 +48,12 @@ template MerkleTreeInclusionProof(nLevels) {
 
     // The last hash of the computation should be equal to the root hash
     rootHash === hashes[nLevels];
+    log(hashes[nLevels]);
 
     // The total sum of the computation should be equal to the root sum
     rootSum === sums[nLevels];
+    log(sums[nLevels]);
+
 }
 
 // Computes the next poseidon hash and the next sum given the current hash and sum, the sibling hash and sum, and the path index
@@ -91,4 +96,4 @@ template nextLevel() {
     nextSum <== mux.out[1] + mux.out[3];
 }
 
-component main = MerkleTreeInclusionProof(16);
+component main {public [rootHash]} = MerkleTreeInclusionProof(16);

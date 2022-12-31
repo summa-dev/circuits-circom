@@ -28,12 +28,17 @@ mocha test
 
 #### To do
 
-- [ ] Remove zk kit from package json once I create a new npm package for it that support smt
+- [x] Remove zk kit from package json once I create a new npm package for it that support smt
+- [ ] Remove root sum from circuit input
+- [ ] Compute total liabilities inside the circuit and compare it to the total assets passed as input
 - [ ] Add proof of assets as input to the circuit
+- [ ] Add check to assets - total liabilities at the end of the circuit
 - [ ] Add check to overflow 
 - [ ] Add check to negative balances
-- [ ] Add sum inside the circuit
-- [ ] Modify hashing 
-- [ ] Add check to assets - total liabilities at the end of the circuit
+- [x] Add sum inside the circuit
+- [x] Modify hashing 
+- [ ] Add gitignore to the repo
+- [ ] Add readme to explain how the circuit works 
+- [ ] Replace package.json
 
 
