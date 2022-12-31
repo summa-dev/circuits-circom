@@ -2,10 +2,12 @@
   "dependencies": {
     "@zk-kit/incremental-merkle-tree": "^1.0.0",
     "big-integer": "^1.6.51",
+    "chai": "^4.3.7",
     "circom_tester": "^0.0.19",
     "circomlib": "^2.0.5",
     "circomlibjs": "^0.0.8",
     "i": "^0.3.7",
-    "npm": "^9.2.0"
+    "npm": "^9.2.0",
+    "ts-merkle-sum-tree": "^0.0.4"
   }
 }
