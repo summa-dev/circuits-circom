@@ -1,13 +1,31 @@
 {
   "dependencies": {
-    "@zk-kit/incremental-merkle-tree": "^1.0.0",
     "big-integer": "^1.6.51",
     "chai": "^4.3.7",
     "circom_tester": "^0.0.19",
     "circomlib": "^2.0.5",
     "circomlibjs": "^0.0.8",
-    "i": "^0.3.7",
-    "npm": "^9.2.0",
     "ts-merkle-sum-tree": "^0.0.4"
-  }
+  },
+  "name": "zk-proof-of-solvency-prover",
+  "description": "APIs to generate and verify Proof Of Solvency Proofs",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pan-y-tomate/zk-proof-of-solvency-prover.git"
+  },
+  "keywords": [
+    "zk",
+    "proof-of-solvency",
+    "snark"
+  ],
+  "author": "Enrico Bottazzi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pan-y-tomate/zk-proof-of-solvency-prover/issues"
+  },
+  "homepage": "https://github.com/pan-y-tomate/zk-proof-of-solvency-prover#readme"
 }
