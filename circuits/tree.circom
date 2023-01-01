@@ -50,11 +50,11 @@ template MerkleTreeInclusionProof(nLevels) {
     // The last hash of the computation should be equal to the root hash
     rootHash === hashes[nLevels];
 
-    // The total sum of the computation should be less or equal to the total assets in order to prove solvency
+    // The total sum of the liabilities should be less or equal to the total assets in order to prove solvency
     lessOrEqual.in[0] <== sums[nLevels];
     lessOrEqual.in[1] <== assetsSum;
 
-    // require the output to be equal to 1
+    // require the output to be equal to 1 in order to be solvent
     lessOrEqual.out === 1;
 
 }
