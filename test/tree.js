@@ -92,8 +92,6 @@ describe("Tree Testing", function async() {
         // add assetsSum 
         proof.assetsSum = BigInt(50)
 
-        // Invalidate the root
-        proof.rootHash = proof.rootHash + 1n
 
         // Catch the error thrown by the circuit
         await circuit.calculateWitness(proof).catch((e) => {
@@ -124,12 +122,75 @@ describe("Tree Testing", function async() {
         // add assetsSum 
         proof.assetsSum = BigInt(55)
 
-        // Invalidate the root
-        proof.rootHash = proof.rootHash + 1n
 
         // Catch the error thrown by the circuit
         await circuit.calculateWitness(proof).catch((e) => {
             // Assert that the error is the expected one 
+            assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
+        });
+
+    });
+
+    it("shouldn't let pass a negative value as leaf sum", async () => {
+
+        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+
+        // Create tree 
+        const tree = new IncrementalMerkleSumTree(poseidon, 16, BigInt(0), 2) // Binary tree.
+
+        // Insert 10 leaves into the tree
+        for (let i = 0; i < 10; i++) {
+            tree.insert(BigInt(i), BigInt(i + 1))
+        }
+
+        // Create proof of inclusion for leaf 5
+        const proof = tree.createProof(5)
+
+        // remove rootSum from the proof
+        delete proof.rootSum;
+
+        // replace leafSum with a negative value
+        proof.leafSum = BigInt(-1)
+
+        // add assetsSum 
+        proof.assetsSum = BigInt(200)
+
+        // Catch the error thrown by the circuit
+        await circuit.calculateWitness(proof).catch((e) => {
+            // Assert that the error is the expected one 
+            assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
+        });
+
+    });
+
+    it("shouldn't let pass a negative value inside the siblingsSums", async () => {
+
+        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+
+        // Create tree 
+        const tree = new IncrementalMerkleSumTree(poseidon, 16, BigInt(0), 2) // Binary tree.
+
+        // Insert 10 leaves into the tree
+        for (let i = 0; i < 10; i++) {
+            tree.insert(BigInt(i), BigInt(i + 1))
+        }
+
+        // Create proof of inclusion for leaf 5
+        const proof = tree.createProof(5)
+
+        // remove rootSum from the proof
+        delete proof.rootSum;
+
+        // add a negative value to siblingsSums
+        proof.siblingsSums[2] = BigInt(-1)
+
+        // add assetsSum 
+        proof.assetsSum = BigInt(200)
+
+        // Catch the error thrown by the circuit
+        await circuit.calculateWitness(proof).catch((e) => {
+            // Assert that the error is the expected one 
+            console.log(e.message)
             assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
         });
 

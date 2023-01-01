@@ -73,6 +73,14 @@ template nextLevel() {
 
     component poseidon = Poseidon(4);
     component mux = MultiMux1(4);
+    component greaterOrEqual = GreaterEqThan(252);
+
+    // First neeed to verify that the siblingSum is not negative
+    greaterOrEqual.in[0] <== siblingSum;
+    greaterOrEqual.in[1] <== 0;
+
+    // require the output to be equal to 1
+    greaterOrEqual.out === 1;
 
     mux.c[0][0] <== hash;
     mux.c[1][0] <== sum;
@@ -99,4 +107,4 @@ template nextLevel() {
     nextSum <== mux.out[1] + mux.out[3];
 }
 
-component main {public [rootHash]} = MerkleTreeInclusionProof(16);
+component main {public [rootHash, assetsSum, leafHash, leafSum]} = MerkleTreeInclusionProof(16);
