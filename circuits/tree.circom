@@ -3,12 +3,12 @@ pragma circom 2.0.0;
 
 include "../node_modules/circomlib/circuits/poseidon.circom";
 include "../node_modules/circomlib/circuits/mux1.circom";
+include "../node_modules/circomlib/circuits/comparators.circom";
 
 template MerkleTreeInclusionProof(nLevels) {
 
     signal input rootHash;
-    signal input rootSum;
-
+    signal input assetsSum;
     signal input leafHash;
     signal input leafSum;
     signal input pathIndices[nLevels];
@@ -16,6 +16,7 @@ template MerkleTreeInclusionProof(nLevels) {
     signal input siblingsSums[nLevels];
 
     component nextLevel[nLevels];
+    component lessOrEqual = LessEqThan(252);
 
     // Create array of hashes and sums to store progressive hashes and sums of the computation
     signal hashes[nLevels + 1];
@@ -48,11 +49,13 @@ template MerkleTreeInclusionProof(nLevels) {
 
     // The last hash of the computation should be equal to the root hash
     rootHash === hashes[nLevels];
-    log(hashes[nLevels]);
 
-    // The total sum of the computation should be equal to the root sum
-    rootSum === sums[nLevels];
-    log(sums[nLevels]);
+    // The total sum of the computation should be less or equal to the total assets in order to prove solvency
+    lessOrEqual.in[0] <== sums[nLevels];
+    lessOrEqual.in[1] <== assetsSum;
+
+    // require the output to be equal to 1
+    lessOrEqual.out === 1;
 
 }
 

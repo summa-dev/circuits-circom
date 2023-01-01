@@ -27,13 +27,19 @@ describe("Tree Testing", function async() {
         // Create proof of inclusion for leaf 5
         const proof = tree.createProof(5)
 
+        // remove rootSum from the proof
+        delete proof.rootSum;
+
+        // add assetsSum 
+        proof.assetsSum = BigInt(125)
+
         // Calculate the witness
         let witness = await circuit.calculateWitness(proof);
 
         await circuit.checkConstraints(witness);
     });
 
-    it("shouldn't verify an invalid proof of inclusion", async () => {
+    it("shouldn't verify an invalid proof of inclusion based on an invalid root", async () => {
 
         let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
 
@@ -47,6 +53,76 @@ describe("Tree Testing", function async() {
 
         // Create proof of inclusion for leaf 5
         const proof = tree.createProof(5)
+
+        // remove rootSum from the proof
+        delete proof.rootSum;
+
+        // add assetsSum 
+        proof.assetsSum = BigInt(125)
+
+        // Invalidate the root
+        proof.rootHash = proof.rootHash + 1n
+
+        // Catch the error thrown by the circuit
+        await circuit.calculateWitness(proof).catch((e) => {
+            // Assert that the error is the expected one 
+            assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
+        });
+    });
+
+
+    it("shouldn't verify an invalid proof of inclusion based on a total of liabilities greater than the total assets", async () => {
+
+        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+
+        // Create tree 
+        const tree = new IncrementalMerkleSumTree(poseidon, 16, BigInt(0), 2) // Binary tree.
+
+        // Insert 10 leaves into the tree
+        for (let i = 0; i < 10; i++) {
+            tree.insert(BigInt(i), BigInt(i + 1))
+        }
+
+        // Create proof of inclusion for leaf 5
+        const proof = tree.createProof(5)
+
+        // remove rootSum from the proof
+        delete proof.rootSum;
+
+        // add assetsSum 
+        proof.assetsSum = BigInt(50)
+
+        // Invalidate the root
+        proof.rootHash = proof.rootHash + 1n
+
+        // Catch the error thrown by the circuit
+        await circuit.calculateWitness(proof).catch((e) => {
+            // Assert that the error is the expected one 
+            assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
+        });
+
+    });
+
+    it("shouldn't verify an invalid proof of inclusion based on a total of liabilities equal to the total assets", async () => {
+
+        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+
+        // Create tree 
+        const tree = new IncrementalMerkleSumTree(poseidon, 16, BigInt(0), 2) // Binary tree.
+
+        // Insert 10 leaves into the tree
+        for (let i = 0; i < 10; i++) {
+            tree.insert(BigInt(i), BigInt(i + 1))
+        }
+
+        // Create proof of inclusion for leaf 5
+        const proof = tree.createProof(5)
+
+        // remove rootSum from the proof
+        delete proof.rootSum;
+
+        // add assetsSum 
+        proof.assetsSum = BigInt(55)
 
         // Invalidate the root
         proof.rootHash = proof.rootHash + 1n
