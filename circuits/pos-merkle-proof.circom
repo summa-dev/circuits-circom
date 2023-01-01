@@ -5,7 +5,7 @@ include "../node_modules/circomlib/circuits/poseidon.circom";
 include "../node_modules/circomlib/circuits/mux1.circom";
 include "../node_modules/circomlib/circuits/comparators.circom";
 
-template MerkleTreeInclusionProof(nLevels) {
+template ProofOfSolvencyMerkleProof(nLevels) {
 
     signal input rootHash;
     signal input assetsSum;
@@ -107,4 +107,4 @@ template nextLevel() {
     nextSum <== mux.out[1] + mux.out[3];
 }
 
-component main {public [rootHash, assetsSum, leafHash, leafSum]} = MerkleTreeInclusionProof(16);
+component main {public [rootHash, assetsSum, leafHash, leafSum]} = ProofOfSolvencyMerkleProof(16);

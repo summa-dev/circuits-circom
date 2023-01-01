@@ -12,7 +12,7 @@ describe("Tree Testing", function async() {
 
     it("should verify a valid proof of inclusion", async () => {
 
-        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "pos-merkle-proof.circom"));
 
         // Create tree 
         const tree = new IncrementalMerkleSumTree(poseidon, 16) // Binary tree with 16 levels and poseidon hash function
@@ -41,7 +41,8 @@ describe("Tree Testing", function async() {
 
     it("shouldn't verify an invalid proof of inclusion based on an invalid root", async () => {
 
-        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+                let circuit = await wasm_tester(path.join(__dirname, "../circuits", "pos-merkle-proof.circom"));
+
 
         // Create tree 
         const tree = new IncrementalMerkleSumTree(poseidon, 16, BigInt(0), 2) // Binary tree.
@@ -73,7 +74,8 @@ describe("Tree Testing", function async() {
 
     it("shouldn't verify an invalid proof of inclusion based on a total of liabilities greater than the total assets", async () => {
 
-        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+                let circuit = await wasm_tester(path.join(__dirname, "../circuits", "pos-merkle-proof.circom"));
+
 
         // Create tree 
         const tree = new IncrementalMerkleSumTree(poseidon, 16, BigInt(0), 2) // Binary tree.
@@ -103,7 +105,8 @@ describe("Tree Testing", function async() {
 
     it("shouldn't verify an invalid proof of inclusion based on a total of liabilities equal to the total assets", async () => {
 
-        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+                let circuit = await wasm_tester(path.join(__dirname, "../circuits", "pos-merkle-proof.circom"));
+
 
         // Create tree 
         const tree = new IncrementalMerkleSumTree(poseidon, 16, BigInt(0), 2) // Binary tree.
@@ -133,7 +136,8 @@ describe("Tree Testing", function async() {
 
     it("shouldn't let pass a negative value as leaf sum", async () => {
 
-        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+                let circuit = await wasm_tester(path.join(__dirname, "../circuits", "pos-merkle-proof.circom"));
+
 
         // Create tree 
         const tree = new IncrementalMerkleSumTree(poseidon, 16, BigInt(0), 2) // Binary tree.
@@ -165,7 +169,8 @@ describe("Tree Testing", function async() {
 
     it("shouldn't let pass a negative value inside the siblingsSums", async () => {
 
-        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "tree.circom"));
+        let circuit = await wasm_tester(path.join(__dirname, "../circuits", "pos-merkle-proof.circom"));
+
 
         // Create tree 
         const tree = new IncrementalMerkleSumTree(poseidon, 16, BigInt(0), 2) // Binary tree.
