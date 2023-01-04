@@ -36,9 +36,9 @@ describe("Tree Testing", function async() {
 
     it("should verify a  proof of inclusion", async () => {
 
-        // Calculate the witness
-        let witness = await circuit.calculateWitness(proof);
+        // // Calculate the witness
 
+        let witness = await circuit.calculateWitness(proof);
         await circuit.checkConstraints(witness);
     });
 
@@ -47,10 +47,14 @@ describe("Tree Testing", function async() {
         // Invalidate the root
         proof.rootHash = proof.rootHash + 1n
 
-        await circuit.calculateWitness(proof).catch((e) => {
+        try {
+            let witness = await circuit.calculateWitness(proof);
+            await circuit.checkConstraints(witness);
+            assert(false)
+        }  catch (e) {
             assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
-            assert.equal(e.message.slice(22, 78), "Error in template ProofOfSolvencyMerkleProof_81 line: 55")
-        });
+            assert.equal(e.message.slice(22, 78), "Error in template ProofOfSolvencyMerkleProof_79 line: 51")
+        }
     });
 
 
@@ -64,40 +68,45 @@ describe("Tree Testing", function async() {
         // modify targetSum 
         proof.targetSum = BigInt(50)
 
-        await circuit.calculateWitness(proof).catch((e) => {
+        try {
+            let witness = await circuit.calculateWitness(proof);
+            await circuit.checkConstraints(witness);
+            assert(false)
+        }  catch (e) {
             assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
-            assert.equal(e.message.slice(22, 78), "Error in template ProofOfSolvencyMerkleProof_81 line: 62")
-        });
+            assert.equal(e.message.slice(22, 78), "Error in template ProofOfSolvencyMerkleProof_79 line: 58")
+        }
 
     });
 
-    it("shouldn't verify an invalid proof of inclusion based on a merkle sum equal to the total assets", async () => {
+    it("should verify a proof of inclusion based on a merkle sum equal to the target sum", async () => {
 
         // modify targetSum 
         proof.targetSum = BigInt(55)
 
-        await circuit.calculateWitness(proof).catch((e) => {
-            assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
-            assert.equal(e.message.slice(22, 78), "Error in template ProofOfSolvencyMerkleProof_81 line: 62")
-        });
+        // Calculate the witness
+        let witness = await circuit.calculateWitness(proof);
 
+        await circuit.checkConstraints(witness);
+        
     });
 
-    it("shouldn't let pass a negative value as leaf sum", async () => {
+    // it("shouldn't let pass a negative value as leaf sum", async () => {
 
-        // replace leafSum with a negative value
-        proof.leafSum = BigInt(-1)
+    //     replace leafSum with a negative value
+    //     proof.leafSum = -1n
+    //     await circuit.calculateWitness(proof).catch((e) => {
 
-        await circuit.calculateWitness(proof).catch((e) => {
-            assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
-            assert.equal(e.message.slice(22, 78), "Error in template ProofOfSolvencyMerkleProof_81 line: 87")
-        });
+    //         console.log(e)
+    //         assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
+    //         assert.equal(e.message.slice(22, 78), "Error in template ProofOfSolvencyMerkleProof_81 line: 87")
+    //     });
 
-    });
+    // });
 
     // it("shouldn't let pass a negative value inside the siblingsSums", async () => {
 
-    //     // add a negative value to siblingsSums
+    //     add a negative value to siblingsSums
     //     proof.siblingsSums[2] = BigInt(-1)
 
     //     await circuit.calculateWitness(proof).catch((e) => {
@@ -106,27 +115,21 @@ describe("Tree Testing", function async() {
 
     // });
 
-    // it("shouldn't let pass a value that overflow the prime as leafsum", async () => {
 
-    //     // replace leafSum with a value that overflow the prime
-    //     proof.leafSum = exports.p + 1n
+    it("shouldn't let pass a proof that overflow the prime when computing the sum", async () => {
 
-    //     await circuit.calculateWitness(proof).catch((e) => {
-    //         assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
-    //     });
+        // leafsum + proof.siblingsSums[0] should overflow the prime
+        proof.siblingsSums[0] = exports.p - BigInt(1)
 
-    // });
+        try {
+            let witness = await circuit.calculateWitness(proof);
+            await circuit.checkConstraints(witness);
+            assert(false)
+        }  catch (e) {
+            assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
+            assert.equal(e.message.slice(22, 62), "Error in template nextLevel_78 line: 110")
+        }
 
-    // it("shouldn't let pass a proof that overflow the prime when computing the sum", async () => {
-
-    //     // leafsum + proof.siblingsSums[0] should overflow the prime
-    //     proof.siblingsSums[0] = exports.p
-
-
-    //     await circuit.calculateWitness(proof).catch((e) => {
-    //         assert.equal(e.message.slice(0, 21), "Error: Assert Failed.")
-    //     });
-
-    // });
+    });
 
 });

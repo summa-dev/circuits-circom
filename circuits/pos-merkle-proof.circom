@@ -22,10 +22,6 @@ template ProofOfSolvencyMerkleProof(nLevels) {
     signal hashes[nLevels + 1];
     signal sums[nLevels + 1];
 
-    // prevent overflow of leafSum 
-    component leafSumRange = Num2Bits(252);
-    leafSumRange.in <== leafSum;
-
     // Initialize the first hash and sum corresponding to the leaf that we want to prove inclusion for
     hashes[0] <== leafHash;
     sums[0] <== leafSum;
@@ -77,14 +73,6 @@ template nextLevel() {
 
     component poseidon = Poseidon(4);
     component mux = MultiMux1(4);
-    component greaterOrEqual = GreaterEqThan(252);
-
-    // First neeed to verify that the siblingSum is not negative
-    greaterOrEqual.in[0] <== siblingSum;
-    greaterOrEqual.in[1] <== 0;
-
-    // require the output to be equal to 1
-    greaterOrEqual.out === 1;
 
     mux.c[0][0] <== hash;
     mux.c[1][0] <== sum;
