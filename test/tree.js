@@ -37,7 +37,6 @@ describe("Tree Testing", function async() {
     it("should verify a  proof of inclusion", async () => {
 
         // // Calculate the witness
-
         let witness = await circuit.calculateWitness(proof);
         await circuit.checkConstraints(witness);
     });

@@ -33,7 +33,7 @@ mocha test
 - [x] Compute total liabilities inside the circuit and compare it to the total assets passed as input
 - [x] Add proof of assets as input to the circuit
 - [x] Add check to assets - total liabilities at the end of the circuit
-- [ ] Add check to overflow 
+- [x] Add check to overflow 
 - [x] Add check to negative balances
 - [x] Add sum inside the circuit
 - [x] Modify hashing 
