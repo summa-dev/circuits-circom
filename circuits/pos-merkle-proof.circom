@@ -8,7 +8,7 @@ include "../node_modules/circomlib/circuits/comparators.circom";
 template ProofOfSolvencyMerkleProof(nLevels) {
 
     signal input rootHash;
-    signal input assetsSum;
+    signal input targetSum;
     signal input leafHash;
     signal input leafSum;
     signal input pathIndices[nLevels];
@@ -21,6 +21,10 @@ template ProofOfSolvencyMerkleProof(nLevels) {
     // Create array of hashes and sums to store progressive hashes and sums of the computation
     signal hashes[nLevels + 1];
     signal sums[nLevels + 1];
+
+    // prevent overflow of leafSum 
+    component leafSumRange = Num2Bits(252);
+    leafSumRange.in <== leafSum;
 
     // Initialize the first hash and sum corresponding to the leaf that we want to prove inclusion for
     hashes[0] <== leafHash;
@@ -52,7 +56,7 @@ template ProofOfSolvencyMerkleProof(nLevels) {
 
     // The total sum of the liabilities should be less or equal to the total assets in order to prove solvency
     lessOrEqual.in[0] <== sums[nLevels];
-    lessOrEqual.in[1] <== assetsSum;
+    lessOrEqual.in[1] <== targetSum;
 
     // require the output to be equal to 1 in order to be solvent
     lessOrEqual.out === 1;
@@ -104,7 +108,21 @@ template nextLevel() {
 
     // output the result of the poseidon hash and sum which is [leftSum + rightSum]
     nextHash <== poseidon.out;
+
+    // we need to prevent overflow of the sum
+    // each addendum should be less or equal than the sum, otherwise it means that the sum has overflowed
+    component leq1 = LessEqThan(252);
+    leq1.in[0] <== mux.out[1];
+    leq1.in[1] <== mux.out[1] + mux.out[3];
+    leq1.out === 1;
+
+    component leq2 = LessEqThan(252);
+    leq2.in[0] <== mux.out[3];
+    leq2.in[1] <== mux.out[1] + mux.out[3];
+    leq2.out === 1;
+
     nextSum <== mux.out[1] + mux.out[3];
+
 }
 
-component main {public [rootHash, assetsSum, leafHash, leafSum]} = ProofOfSolvencyMerkleProof(16);
+component main {public [rootHash, targetSum, leafHash, leafSum]} = ProofOfSolvencyMerkleProof(16);

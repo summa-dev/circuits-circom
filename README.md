@@ -39,6 +39,6 @@ mocha test
 - [x] Modify hashing 
 - [x] Add gitignore to the repo
 - [ ] Add readme to explain how the circuit works 
-- [ ] Replace package.json
+- [x] Replace package.json
 
 
