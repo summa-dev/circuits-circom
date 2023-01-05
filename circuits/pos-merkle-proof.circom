@@ -71,13 +71,6 @@ template nextLevel() {
     signal output nextHash;
     signal output nextSum;
 
-    // prevent overflow of the sum and of the siblingSum
-    component sumInRange = Num2Bits(252);
-    sumInRange.in <== sum;
-
-    component siblingSumInRange = Num2Bits(252);
-    siblingSumInRange.in <== siblingSum;
-
     component poseidon = Poseidon(4);
     component mux = MultiMux1(4);
 
