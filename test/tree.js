@@ -24,13 +24,7 @@ describe("Tree Testing", function async() {
         }
 
         // create a valid proof of inclusion for leaf 5
-        proof = tree.createProof(5)
-
-        // remove rootSum from the proof
-        delete proof.rootSum;
-
-        // add targetSum
-        proof.targetSum = BigInt(125)
+        proof = tree.createProofWithTargetSum(5, BigInt(125))
 
     });
 
@@ -64,7 +58,7 @@ describe("Tree Testing", function async() {
 
         assert.equal(totalSum, 55n)
 
-        // modify targetSum 
+        // modify targetSum
         proof.targetSum = BigInt(50)
 
         try {

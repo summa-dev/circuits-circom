@@ -5,7 +5,7 @@
     "circom_tester": "^0.0.19",
     "circomlib": "^2.0.5",
     "circomlibjs": "^0.0.8",
-    "ts-merkle-sum-tree": "^0.0.4"
+    "ts-merkle-sum-tree": "^0.0.5"
   },
   "name": "zk-proof-of-solvency-prover",
   "description": "APIs to generate and verify Proof Of Solvency Proofs",
