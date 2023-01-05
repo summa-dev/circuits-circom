@@ -45,6 +45,27 @@ A proof generated using the circuit, even if verified, doesn't ensure that the p
 
 ## Scripts
 
+In order to compile the circuit, execute the trusted setup, generate the proof (and verify it) run from the root directory:
+
+```bash
+npm run build
+```
+
+The script will generate a proof based on a pre generated sample input. In order to generate other inputs you can use this program: 
+
+```javascript
+
+	const { IncrementalMerkleSumTree } = require("ts-merkle-sum-tree")
+
+	...
+
+    proof = tree.createProofWithTargetSum(5, BigInt(125))
+
+	inputToCircuit = JSON.strigify(proof)
+
+```
+
+
 ## Test
 
 To run the tests, run the following command:
@@ -54,6 +75,19 @@ mocha test
 ```
 
 ## Benchmarks
+
+All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
+
+|   |pos prover|
+|---|---|
+|Constraints                          |13148 |
+|Circuit compilation                  |1s    |
+|Witness generation                   |1s     |
+|Proving Key generation				|722s     |
+|Proving key size                     |1.2G     |
+|Proving key verification             |787s     |
+|Proving time                         |66s      |
+|Proof verification time              |1s      |
 
 #### To do
 
@@ -69,8 +103,10 @@ mocha test
 - [x] Add gitignore to the repo
 - [x] Add readme to explain how the circuit works 
 - [x] Replace package.json
-- [ ] Add scripts
+- [ ] Create script just to compile, prove and verify. The setup must be already performed, can explain how this has been generated!
+- [ ] Add build command in package.json
 - [ ] Add benchmarks 
 - [ ] Fix package.json
+- [ ] Modify need for ptau
 
 
