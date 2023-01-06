@@ -36,19 +36,13 @@ echo "DONE ($((end-start))s)"
 
 echo "****SET UP"
 start=`date +%s`
-snarkjs plonk setup "$BUILD_DIR"/"$CIRCUIT_NAME".r1cs "$PHASE1" "$BUILD_DIR"/"$CIRCUIT_NAME"_final.zkey -v
-end=`date +%s`
-echo "DONE ($((end-start))s)"
-
-echo "****VERIFYING FINAL ZKEY****"
-start=`date +%s`
-snarkjs zkey verify "$BUILD_DIR"/"$CIRCUIT_NAME".r1cs "$PHASE1" "$BUILD_DIR"/"$CIRCUIT_NAME"_final.zkey -v
+snarkjs pks "$BUILD_DIR"/"$CIRCUIT_NAME".r1cs "$PHASE1" "$BUILD_DIR"/"$CIRCUIT_NAME"_final.zkey
 end=`date +%s`
 echo "DONE ($((end-start))s)"
 
 echo "****EXPORTING VKEY****"
 start=`date +%s`
-snarkjs zkey export verificationkey "$BUILD_DIR"/"$CIRCUIT_NAME".zkey "$BUILD_DIR"/vkey.json
+snarkjs zkey export verificationkey "$BUILD_DIR"/"$CIRCUIT_NAME"_final.zkey "$BUILD_DIR"/vkey.json
 end=`date +%s`
 echo "DONE ($((end-start))s)"
 

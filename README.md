@@ -83,10 +83,9 @@ All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
 |Constraints                          |13148 |
 |Circuit compilation                  |1s    |
 |Witness generation                   |1s     |
-|Proving Key generation				|722s     |
-|Proving key size                     |1.2G     |
-|Proving key verification             |787s     |
-|Proving time                         |66s      |
+|Plonk Set-up time   				  |30s     |
+|Proving key size                     |530 MB    |
+|Proving time                         |90s      |
 |Proof verification time              |1s      |
 
 #### To do
@@ -108,5 +107,4 @@ All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
 - [ ] Add benchmarks 
 - [ ] Fix package.json
 - [ ] Modify need for ptau
-
-
+- [ ] Add stuff to gitignore
