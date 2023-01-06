@@ -63,7 +63,7 @@ The script will:
 
 	...
 
-    proof = tree.createProofWithTargetSum(5, BigInt(125))
+    	proof = tree.createProofWithTargetSum(5, BigInt(125))
 
 	inputToCircuit = JSON.strigify(proof)
 
