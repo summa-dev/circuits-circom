@@ -57,17 +57,17 @@ The script will:
 - Compile the circuit 
 - Generate a witness based on a pre generated sample input. In order to generate other inputs you can use this program: 
 
-```javascript
+	```javascript
 
 	const { IncrementalMerkleSumTree } = require("ts-merkle-sum-tree")
 
 	...
 
-    	proof = tree.createProofWithTargetSum(5, BigInt(125))
+	proof = tree.createProofWithTargetSum(5, BigInt(125))
 
 	inputToCircuit = JSON.strigify(proof)
 
-```
+	```
 
 - Generate the proof based on the witness
 - Verify the proof
