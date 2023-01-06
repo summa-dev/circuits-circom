@@ -5,10 +5,18 @@ zkSNARK proving system for Proof Of Solvency.
 The zkSNARK proving system consists in a circuit, written in circom, that enforces the rules that the Exchange must abide by when generating a Proof Of Solvency for a specific user. 
 
 The circuit checks that: 
+
 	- A user-balance entry has been included in the Merkle Sum Tree
-    - The computation of the sum going from the user's entry to the root has been performed correctly
+	- The computation of the sum going from the user's entry to the root has been performed correctly
 	- No sum overflow happened during the computation
 	- The total of the entries in the tree (namely the total liabilities of an exchange) is equal or less than the total sum of the assets of the exchange
+	
+The prover system gurantees fully-credibile proof while preserving the privacy of CEX Busienss Intelligence data such as:
+
+- Number of users of the exchanges
+- Users balances 
+- Siblings partial sum balances 
+- Total liabilities of the exchange
 
 The prover relies on [TS-Merkle-Sum-Tree Library](https://github.com/pan-y-tomate/ts-merkle-sum-tree) for the merkle Sum tree operations.
 
