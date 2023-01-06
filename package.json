@@ -25,7 +25,7 @@
     "snark"
   ],
   "author": "Enrico Bottazzi",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/pan-y-tomate/zk-proof-of-solvency-prover/issues"
   },
