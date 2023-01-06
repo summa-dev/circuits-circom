@@ -51,7 +51,11 @@ In order to compile the circuit, execute the trusted setup, generate the proof (
 npm run build
 ```
 
-The script will generate a proof based on a pre generated sample input. In order to generate other inputs you can use this program: 
+The script will:
+
+- Download the trusted [Powers Of Tau](https://github.com/iden3/snarkjs#7-prepare-phase-2) setup generated from the Hermez Community
+- Compile the circuit 
+- Generate a witness based on a pre generated sample input. In order to generate other inputs you can use this program: 
 
 ```javascript
 
@@ -65,13 +69,15 @@ The script will generate a proof based on a pre generated sample input. In order
 
 ```
 
+- Generate the proof based on the witness
+- Verify the proof
 
 ## Test
 
 To run the tests, run the following command:
 
 ```bash
-mocha test
+npm run test
 ```
 
 ## Benchmarks
@@ -87,24 +93,3 @@ All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
 |Proving key size                     |530 MB    |
 |Proving time                         |90s      |
 |Proof verification time              |1s      |
-
-#### To do
-
-- [x] Remove zk kit from package json once I create a new npm package for it that support smt
-- [x] Remove root sum from circuit input
-- [x] Compute total liabilities inside the circuit and compare it to the total assets passed as input
-- [x] Add proof of assets as input to the circuit
-- [x] Add check to assets - total liabilities at the end of the circuit
-- [x] Add check to overflow 
-- [x] Add check to negative balances
-- [x] Add sum inside the circuit
-- [x] Modify hashing 
-- [x] Add gitignore to the repo
-- [x] Add readme to explain how the circuit works 
-- [x] Replace package.json
-- [ ] Create script just to compile, prove and verify. The setup must be already performed, can explain how this has been generated!
-- [ ] Add build command in package.json
-- [ ] Add benchmarks 
-- [ ] Fix package.json
-- [ ] Modify need for ptau
-- [ ] Add stuff to gitignore

@@ -12,7 +12,8 @@
   "description": "APIs to generate and verify Proof Of Solvency Proofs",
   "version": "1.0.0",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "bash scripts/build.sh"
   },
   "repository": {
     "type": "git",
