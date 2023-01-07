@@ -70,7 +70,7 @@ In order to compile the circuit, execute the trusted setup, generate the proof (
 The script will:
 
 - Download the trusted [Powers Of Tau](https://github.com/iden3/snarkjs#7-prepare-phase-2) setup generated from the Hermez Community 
-- Do the trusted setup (for groth 16)
+- Do the trusted setup (only required for groth 16)
 - Compile the circuit 
 - Generate a witness based on a pre generated sample input. In order to generate other inputs you can use this program: 
 
