@@ -55,13 +55,22 @@ A proof generated using the circuit, even if verified, doesn't ensure that the p
 
 In order to compile the circuit, execute the trusted setup, generate the proof (and verify it) run from the root directory:
 
-```bash
-npm run build
-```
+- plonk
+
+	```bash
+	npm run build plonk
+	```
+
+- groth16
+
+	```bash
+	npm run build groth16
+	```
 
 The script will:
 
-- Download the trusted [Powers Of Tau](https://github.com/iden3/snarkjs#7-prepare-phase-2) setup generated from the Hermez Community
+- Download the trusted [Powers Of Tau](https://github.com/iden3/snarkjs#7-prepare-phase-2) setup generated from the Hermez Community 
+- Do the trusted setup (only required for groth 16)
 - Compile the circuit 
 - Generate a witness based on a pre generated sample input. In order to generate other inputs you can use this program: 
 
@@ -92,7 +101,7 @@ npm run test
 
 All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
 
-|   |pos prover|
+|**plonk**  | |
 |---|---|
 |Constraints                          |13148 |
 |Circuit compilation                  |1s    |
@@ -101,3 +110,17 @@ All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
 |Proving key size                     |530 MB    |
 |Proving time                         |90s      |
 |Proof verification time              |1s      |
+
+|**groth16**  | |
+|---|---|
+|Constraints                          |13148 |
+|Circuit compilation                  |2s    |
+|Witness generation                   |0s     |
+|Groth16 key generation time   		|3s     |
+|Proving key size                     |11,8 MB    |
+|Proving time                         |1s      |
+|Proof verification time              |1s      |
+
+Qs:
+
+- [ ] Why the ptau file used in different between groth16 and plonk? 
