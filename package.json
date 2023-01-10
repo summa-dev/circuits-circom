@@ -13,8 +13,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "mocha",
-    "build plonk": "bash scripts/build-plonk.sh",
-    "build groth16": "bash scripts/build-groth16.sh"
+    "build-plonk": "bash scripts/build-plonk.sh",
+    "build-groth16": "bash scripts/build-groth16.sh"
   },
   "repository": {
     "type": "git",

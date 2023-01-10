@@ -58,13 +58,13 @@ In order to compile the circuit, execute the trusted setup, generate the proof (
 - plonk
 
 	```bash
-	npm run build plonk
+	npm run build-plonk
 	```
 
 - groth16
 
 	```bash
-	npm run build groth16
+	npm run build-groth16
 	```
 
 The script will:
@@ -101,26 +101,14 @@ npm run test
 
 All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
 
-|**plonk**  | |
-|---|---|
-|Constraints                          |13148 |
-|Circuit compilation                  |1s    |
-|Witness generation                   |1s     |
-|Plonk Set-up time   				  |30s     |
-|Proving key size                     |530 MB    |
-|Proving time                         |90s      |
-|Proof verification time              |1s      |
-
-|**groth16**  | |
-|---|---|
-|Constraints                          |13148 |
-|Circuit compilation                  |2s    |
-|Witness generation                   |0s     |
-|Groth16 key generation time   		|3s     |
-|Proving key size                     |11,8 MB    |
-|Proving time                         |1s      |
-|Proof verification time              |1s      |
-
-Qs:
-
-- [ ] Why the ptau file used in different between groth16 and plonk? 
+| 									 | **groth16**  |**plonk**  
+|------------------------------------|--------------|-------|
+|Constraints                         |13148         | 13148 |
+|Circuit compilation                 |2s            | 2s    |
+|Witness generation                  |0s      		| 0s    |
+|Setup key generation 		         |39s  			| 27s   |
+|Trusted setup phase 2 contribution	 |6s 	 		| n.a   |
+|Proving key size					 |12MB  		| 530MB |
+|Proving key verification		  	 |40s   		| n.a   |
+|Proving time                        |1s     		| 85s   |
+|Proof verification time             |0s      		| 1s   	|
