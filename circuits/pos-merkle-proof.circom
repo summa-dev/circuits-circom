@@ -1,4 +1,4 @@
-// Fork from semaphore https://github.com/semaphore-protocol/semaphore/blob/main/packages/circuits/tree.circom 
+// Fork from semaphore https://github.com/semaphore-protocol/semaphore/blob/main/packages/circuits/tree.circom
 pragma circom 2.0.0;
 
 include "../node_modules/circomlib/circuits/poseidon.circom";
@@ -34,6 +34,11 @@ template ProofOfSolvencyMerkleProof(nLevels) {
         // Check that the path indices are either 0 or 1
         pathIndices[i] * (1 - pathIndices[i]) === 0;
 
+        // Check that the sibling node has non-negative sum
+        lessOrEqual.in[0] <== 0;
+        lessOrEqual.in[1] <== siblingsSums[i];
+        lessOrEqual.out === 1;
+
         // Pass in the inputs to the nextLevel component that computes the next hash and sum
         nextLevel[i].hash <== hashes[i];
         nextLevel[i].sum <== sums[i];
@@ -63,7 +68,7 @@ template ProofOfSolvencyMerkleProof(nLevels) {
 template nextLevel() {
 
     signal input hash;
-    signal input sum; 
+    signal input sum;
     signal input siblingHash;
     signal input siblingSum;
     signal input pathIndex;
