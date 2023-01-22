@@ -21,19 +21,18 @@ describe("Tree Testing", function async() {
         tree = new IncrementalMerkleSumTree(pathToCsv) // Init a tree from the entries in the csv file
 
         // get the input
-        const entryIndex = tree.indexOf("dxGaEAii", BigInt(11888)) 
+        entryIndex = tree.indexOf("dxGaEAii", BigInt(11888)) 
         input = tree.createProof(entryIndex)
 
     });
 
     it("should verify a proof of inclusion of an existing entry if assetsSum > liabilitiesSum", async () => {
 
+
         // add property assetsSum to input object - assetsSum > liabilitiesSum
         input.assetsSum = BigInt(3273939305);
 
         let usernammeToBigInt = Utils.parseUsernameToBigInt("dxGaEAii") 
-
-        console.log(JSON.stringify(input))
 
         const expectedHashOutput = poseidon([usernammeToBigInt, BigInt(11888)])
 
@@ -45,6 +44,7 @@ describe("Tree Testing", function async() {
 
     it("should verify a proof of inclusion of an existing entry if assetsSum  = liabilitiesSum", async () => {
 
+        const input = tree.createProof(entryIndex)
         // add property assetsSum to input object - assetsSum = liabilitiesSum
         input.assetsSum = BigInt(3273939304);
 
@@ -60,6 +60,7 @@ describe("Tree Testing", function async() {
 
     it("shouldn't verify a proof of inclusion of an existing entry if assetsSum < liabilitiesSum", async () => {
 
+        const input = tree.createProof(entryIndex)
         // add property assetsSum to input object - assetsSum < liabilitiesSum
         input.assetsSum = BigInt(3273939303);
 
@@ -75,6 +76,8 @@ describe("Tree Testing", function async() {
     });
 
     it("shouldn't verify a proof of inclusion of a non-existing entry", async () => {
+
+        const input = tree.createProof(entryIndex)
 
         // add property assetsSum to input object - assetsSum > liabilitiesSum
         input.assetsSum = BigInt(3273939305);
@@ -101,6 +104,7 @@ describe("Tree Testing", function async() {
 
     it("shouldn't verify a proof of inclusion based on an invalid root", async () => {
 
+        const input = tree.createProof(entryIndex)
         // Invalidate the root
         input.rootHash = input.rootHash + 1n
 
@@ -118,6 +122,8 @@ describe("Tree Testing", function async() {
     });
 
     it("should generate an error if one of the balances overflows 2**252", async () => {
+
+        const input = tree.createProof(entryIndex)
 
         // add a balance that overflows 2**252 to the input
         input.balance = exports.p - 1n
@@ -137,6 +143,8 @@ describe("Tree Testing", function async() {
     });
 
     it("should generate an error if the sum of two balances overflows 2**252", async () => {
+
+        const input = tree.createProof(entryIndex)
 
         // add a balance that will overflow 2**252 when added to the another balance
         input.balance = BigInt(2**252) - 1n

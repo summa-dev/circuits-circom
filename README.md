@@ -114,3 +114,13 @@ All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory. The benchmark 
 |Proving key verification		  	 |41s   		|
 |Proving time                        |2s     		|
 |Proof verification time             |0s      		|
+
+## Trusted Setup Artifcats
+
+A trusted setup run by me is publicly available to test the prove/verify process. The available artifacts is based on a Merkle Sum Tree with 16 levels (2^16 leaves).
+
+The artifacts generated during the Trusted Setup are publicly available :
+
+proving key zkey `wget https://pan-y-tomate.s3.eu-west-3.amazonaws.com/pyt-pos-16_final.zkey`
+circuit wasm `wget  https://pan-y-tomate.s3.eu-west-3.amazonaws.com/pyt-pos-16.wasm`
+verification key vkey `wget https://pan-y-tomate.s3.eu-west-3.amazonaws.com/vkey.json`
