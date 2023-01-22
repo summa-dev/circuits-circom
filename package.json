@@ -5,11 +5,11 @@
     "circom_tester": "^0.0.19",
     "circomlib": "^2.0.5",
     "circomlibjs": "^0.0.8",
-    "snarkjs": "^0.5.0",
-    "ts-merkle-sum-tree": "^0.0.5"
+    "pyt-merkle-sum-tree": "^0.0.9",
+    "snarkjs": "^0.5.0"
   },
-  "name": "zk-proof-of-solvency-prover",
-  "description": "APIs to generate and verify Proof Of Solvency Proofs",
+  "name": "pyt-circuits",
+  "description": "circuits, written in circom, for pan-y-tomate proof of solvency",
   "version": "1.0.0",
   "scripts": {
     "test": "mocha",
@@ -18,17 +18,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pan-y-tomate/zk-proof-of-solvency-prover.git"
+    "url": "git+https://github.com/pan-y-tomate/pyt-circuits.git"
   },
   "keywords": [
     "zk",
     "proof-of-solvency",
-    "snark"
+    "zk-snark",
+    "circom",
+    "snarkjs"
   ],
   "author": "Enrico Bottazzi",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/pan-y-tomate/zk-proof-of-solvency-prover/issues"
+    "url": "https://github.com/pan-y-tomate/pyt-circuits/issues"
   },
-  "homepage": "https://github.com/pan-y-tomate/zk-proof-of-solvency-prover#readme"
+  "homepage": "https://github.com/pan-y-tomate/pyt-circuits#readme"
 }
