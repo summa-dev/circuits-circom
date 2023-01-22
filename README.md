@@ -11,7 +11,7 @@ The circuit checks that:
 	- No sum overflow happened during the computation
 	- The total of the entries in the tree (namely the total liabilities of an exchange) is equal or less than the total sum of the assets of the exchange
 	
-The prover system gurantees fully-credibile proof while preserving the privacy of CEX Busienss Intelligence data such as:
+The prover system garantees fully-credibile proof while preserving the privacy of CEX Busienss Intelligence data such as:
 
 - Number of users of the exchanges
 - Users balances 
@@ -112,5 +112,3 @@ All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
 |Proving key verification		  	 |40s   		| n.a   |
 |Proving time                        |1s     		| 85s   |
 |Proof verification time             |0s      		| 1s   	|
-
-- [ ] Update circom version
