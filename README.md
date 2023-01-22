@@ -112,3 +112,5 @@ All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
 |Proving key verification		  	 |40s   		| n.a   |
 |Proving time                        |1s     		| 85s   |
 |Proof verification time             |0s      		| 1s   	|
+
+- [ ] Update circom version
