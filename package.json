@@ -5,7 +5,7 @@
     "circom_tester": "^0.0.19",
     "circomlib": "^2.0.5",
     "circomlibjs": "^0.0.8",
-    "pyt-merkle-sum-tree": "^0.0.9",
+    "pyt-merkle-sum-tree": "^0.0.10",
     "snarkjs": "^0.5.0"
   },
   "name": "pyt-circuits",
@@ -13,8 +13,7 @@
   "version": "1.0.0",
   "scripts": {
     "test": "mocha",
-    "build-plonk": "bash scripts/build-plonk.sh",
-    "build-groth16": "bash scripts/build-groth16.sh"
+    "build": "bash scripts/build.sh"
   },
   "repository": {
     "type": "git",

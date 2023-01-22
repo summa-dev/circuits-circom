@@ -51,26 +51,18 @@ A proof generated using the circuit, even if verified, doesn't ensure that the p
 - The `leafHash` must be the hash of the leaf `H(username, balance)` that contains the data of the user to which the proof is being generated for
 - The `leafSum` must be the balance of the user to which the proof is being generater for
 
-## Scripts
+## Build
 
-In order to compile the circuit, execute the trusted setup, generate the proof (and verify it) run from the root directory:
-
-- plonk
+In order to compile the circuit, execute the trusted setup, generate the proof (and verify it) using groth16 as proving system run from the root directory:
 
 	```bash
-	npm run build-plonk
-	```
-
-- groth16
-
-	```bash
-	npm run build-groth16
+	npm run build
 	```
 
 The script will:
 
 - Download the trusted [Powers Of Tau](https://github.com/iden3/snarkjs#7-prepare-phase-2) setup generated from the Hermez Community 
-- Do the trusted setup (only required for groth 16)
+- Do the trusted setup required for the groth16 proving system
 - Compile the circuit 
 - Generate a witness based on a pre generated sample input. In order to generate other inputs you can use this program: 
 
@@ -94,21 +86,21 @@ The script will:
 To run the tests, run the following command:
 
 ```bash
-npm run test
+npm test
 ```
 
 ## Benchmarks
 
-All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory.
+All benchmarks are run on a Macbook Air M1, 2020 AWS, 8GB memory. The benchmark was run on a Merkle Sum Tree with 16 levels (2^16 leaves).
 
-| 									 | **groth16**  |**plonk**  
-|------------------------------------|--------------|-------|
-|Constraints                         |13148         | 13148 |
-|Circuit compilation                 |2s            | 2s    |
-|Witness generation                  |0s      		| 0s    |
-|Setup key generation 		         |39s  			| 27s   |
-|Trusted setup phase 2 contribution	 |6s 	 		| n.a   |
-|Proving key size					 |12MB  		| 530MB |
-|Proving key verification		  	 |40s   		| n.a   |
-|Proving time                        |1s     		| 85s   |
-|Proof verification time             |0s      		| 1s   	|
+| 									 | **groth16**  | 
+|------------------------------------|--------------|
+|Constraints                         |13892         |
+|Circuit compilation                 |2s            |
+|Witness generation                  |0s      		|
+|Setup key generation 		         |40s  			|
+|Trusted setup phase 2 contribution	 |6s 	 		|
+|Proving key size					 |12.3MB  		|
+|Proving key verification		  	 |41s   		|
+|Proving time                        |2s     		|
+|Proof verification time             |0s      		|

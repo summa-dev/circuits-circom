@@ -13,32 +13,29 @@ describe("Tree Testing", function async() {
 
     beforeEach(async function () {
         this.timeout(100000);
-        circuit = await wasm_tester(path.join(__dirname, "../circuits", "pyt-pos.circom"));
+        circuit = await wasm_tester(path.join(__dirname, "../scripts/input", "pyt-pos-16.circom"));
 
-        const pathToCsv = "test/entries/entry-16-valid.csv" 
-        // total sum of the liablities is 84359
+        const pathToCsv = "test/entries/entry-16.csv" 
+        // total sum of the liablities is 3273939304
 
         tree = new IncrementalMerkleSumTree(pathToCsv) // Init a tree from the entries in the csv file
 
-        entry = {
-            username : "gAdsIaKy",
-            balance : BigInt(7534)
-        }
-
         // get the input
-        const entryIndex = tree.indexOf(entry) 
+        const entryIndex = tree.indexOf("dxGaEAii", BigInt(11888)) 
         input = tree.createProof(entryIndex)
 
     });
 
     it("should verify a proof of inclusion of an existing entry if assetsSum > liabilitiesSum", async () => {
 
-        // add property assetsSum to input object 
-        input.assetsSum = BigInt(84360);
+        // add property assetsSum to input object - assetsSum > liabilitiesSum
+        input.assetsSum = BigInt(3273939305);
 
-        let usernammeToBigInt = Utils.parseUsernameToBigInt(entry.username) 
+        let usernammeToBigInt = Utils.parseUsernameToBigInt("dxGaEAii") 
 
-        const expectedHashOutput = poseidon([usernammeToBigInt, entry.balance])
+        console.log(JSON.stringify(input))
+
+        const expectedHashOutput = poseidon([usernammeToBigInt, BigInt(11888)])
 
         // // Calculate the witness
         let witness = await circuit.calculateWitness(input);
@@ -48,12 +45,12 @@ describe("Tree Testing", function async() {
 
     it("should verify a proof of inclusion of an existing entry if assetsSum  = liabilitiesSum", async () => {
 
-        // add property assetsSum to input object 
-        input.assetsSum = BigInt(84359);
+        // add property assetsSum to input object - assetsSum = liabilitiesSum
+        input.assetsSum = BigInt(3273939304);
 
-        let usernammeToBigInt = Utils.parseUsernameToBigInt(entry.username) 
+        let usernammeToBigInt = Utils.parseUsernameToBigInt("dxGaEAii") 
 
-        const expectedHashOutput = poseidon([usernammeToBigInt, entry.balance])
+        const expectedHashOutput = poseidon([usernammeToBigInt, BigInt(11888)])
 
         // // Calculate the witness
         let witness = await circuit.calculateWitness(input);
@@ -63,8 +60,8 @@ describe("Tree Testing", function async() {
 
     it("shouldn't verify a proof of inclusion of an existing entry if assetsSum < liabilitiesSum", async () => {
 
-        // add property assetsSum to input object 
-        input.assetsSum = BigInt(84358);
+        // add property assetsSum to input object - assetsSum < liabilitiesSum
+        input.assetsSum = BigInt(3273939303);
 
         try {
             let witness = await circuit.calculateWitness(input);
@@ -79,15 +76,14 @@ describe("Tree Testing", function async() {
 
     it("shouldn't verify a proof of inclusion of a non-existing entry", async () => {
 
-        // add property assetsSum to input object 
-        input.assetsSum = BigInt(84359);
+        // add property assetsSum to input object - assetsSum > liabilitiesSum
+        input.assetsSum = BigInt(3273939305);
 
         let usernammeToBigInt = Utils.parseUsernameToBigInt("alice") 
 
-
         // add a non-existing entry to the input 
-        input.leafUsername = usernammeToBigInt
-        input.leafSum = BigInt(99)
+        input.username = usernammeToBigInt
+        input.balance = BigInt(99)
 
         // add property assetsSum to input object 
         input.assetsSum = BigInt(84358);
@@ -108,8 +104,8 @@ describe("Tree Testing", function async() {
         // Invalidate the root
         input.rootHash = input.rootHash + 1n
 
-        // add property assetsSum to input object 
-        input.assetsSum = BigInt(84358);
+        // add property assetsSum to input object - assetsSum > liabilitiesSum
+        input.assetsSum = BigInt(3273939305);
 
         try {
             let witness = await circuit.calculateWitness(input);
@@ -124,10 +120,10 @@ describe("Tree Testing", function async() {
     it("should generate an error if one of the balances overflows 2**252", async () => {
 
         // add a balance that overflows 2**252 to the input
-        input.leafSum = exports.p - 1n
+        input.balance = exports.p - 1n
 
-        // add property assetsSum to input object 
-        input.assetsSum = BigInt(84358);
+        // add property assetsSum to input object - assetsSum > liabilitiesSum
+        input.assetsSum = BigInt(3273939305);
 
         try {
             let witness = await circuit.calculateWitness(input);
@@ -143,10 +139,10 @@ describe("Tree Testing", function async() {
     it("should generate an error if the sum of two balances overflows 2**252", async () => {
 
         // add a balance that will overflow 2**252 when added to the another balance
-        input.leafSum = BigInt(2**252) - 1n
+        input.balance = BigInt(2**252) - 1n
 
-        // add property assetsSum to input object 
-        input.assetsSum = BigInt(84358);
+        // add property assetsSum to input object - assetsSum > liabilitiesSum
+        input.assetsSum = BigInt(3273939305);
 
         try {
             let witness = await circuit.calculateWitness(input);

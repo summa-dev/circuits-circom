@@ -7,8 +7,8 @@ include "./safe-cex.circom";
 template PytPos(nLevels) {
 
     signal input rootHash;
-    signal input leafUsername;
-    signal input leafSum;
+    signal input username;
+    signal input balance;
     signal input pathIndices[nLevels];
     signal input siblingsHashes[nLevels];
     signal input siblingsSums[nLevels];
@@ -21,8 +21,8 @@ template PytPos(nLevels) {
     component safeEqLessThan = SafeLessEqThan(252);
 
     // compute the leafHash from the username and balance
-    toLeafHash.username <== leafUsername;
-    toLeafHash.balance <== leafSum;
+    toLeafHash.username <== username;
+    toLeafHash.balance <== balance;
 
     leafHash <== toLeafHash.out;
 
@@ -32,7 +32,7 @@ template PytPos(nLevels) {
 
     // Initialize the first hash and balance corresponding to the entry that we want to prove inclusion for
     hashes[0] <== toLeafHash.out;
-    sums[0] <== leafSum;
+    sums[0] <== balance;
 
     // Iterate over the levels of the tree until the root
     for (var i = 0; i < nLevels; i++) {
@@ -64,5 +64,3 @@ template PytPos(nLevels) {
 
     safeEqLessThan.out === 1;
 }
-
-component main {public [rootHash, assetsSum]} = PytPos(4);
