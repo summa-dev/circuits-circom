@@ -1,35 +1,10 @@
 {
   "dependencies": {
+    "@zk-kit/incremental-merkle-tree": "^1.0.0",
     "big-integer": "^1.6.51",
     "chai": "^4.3.7",
     "circom_tester": "^0.0.19",
     "circomlib": "^2.0.5",
-    "circomlibjs": "^0.0.8",
-    "pyt-merkle-sum-tree": "^0.0.10",
-    "snarkjs": "^0.5.0"
-  },
-  "name": "pyt-circuits",
-  "description": "circuits, written in circom, for pan-y-tomate proof of solvency",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "mocha",
-    "build": "bash scripts/build.sh"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pan-y-tomate/pyt-circuits.git"
-  },
-  "keywords": [
-    "zk",
-    "proof-of-solvency",
-    "zk-snark",
-    "circom",
-    "snarkjs"
-  ],
-  "author": "Enrico Bottazzi",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/pan-y-tomate/pyt-circuits/issues"
-  },
-  "homepage": "https://github.com/pan-y-tomate/pyt-circuits#readme"
+    "circomlibjs": "^0.0.8"
+  }
 }
