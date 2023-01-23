@@ -121,6 +121,6 @@ A trusted setup run by me is publicly available to test the prove/verify process
 
 The artifacts generated during the Trusted Setup are publicly available :
 
-proving key zkey `wget https://pan-y-tomate.s3.eu-west-3.amazonaws.com/pyt-pos-16_final.zkey`
-circuit wasm `wget  https://pan-y-tomate.s3.eu-west-3.amazonaws.com/pyt-pos-16.wasm`
-verification key vkey `wget https://pan-y-tomate.s3.eu-west-3.amazonaws.com/vkey.json`
+- proving key zkey `wget https://pan-y-tomate.s3.eu-west-3.amazonaws.com/pyt-pos-16_final.zkey`
+- circuit wasm `wget  https://pan-y-tomate.s3.eu-west-3.amazonaws.com/pyt-pos-16.wasm`
+- verification key vkey `wget https://pan-y-tomate.s3.eu-west-3.amazonaws.com/vkey.json`
