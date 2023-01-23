@@ -1,8 +1,8 @@
 #!/bin/bash
 PHASE1=powersOfTau28_hez_final_14.ptau
 BUILD_DIR=./build
-CIRCUIT_PATH=./circuits/pos-merkle-proof.circom
-CIRCUIT_NAME=pos-merkle-proof
+CIRCUIT_PATH=./scripts/input/pyt-pos-16.circom
+CIRCUIT_NAME=pyt-pos-16
 
 if [ -f "$PHASE1" ]; then
     echo "Found Phase 1 ptau file"
@@ -24,7 +24,7 @@ echo "DONE ($((end-start))s)"
 
 echo "****GENERATING WITNESS FOR SAMPLE INPUT****"
 start=`date +%s`
-node "$BUILD_DIR"/"$CIRCUIT_NAME"_js/generate_witness.js "$BUILD_DIR"/"$CIRCUIT_NAME"_js/"$CIRCUIT_NAME".wasm scripts/sample_input.json "$BUILD_DIR"/witness.wtns
+node "$BUILD_DIR"/"$CIRCUIT_NAME"_js/generate_witness.js "$BUILD_DIR"/"$CIRCUIT_NAME"_js/"$CIRCUIT_NAME".wasm scripts/input/sample-input-16.json "$BUILD_DIR"/witness.wtns
 end=`date +%s`
 echo "DONE ($((end-start))s)"
 
