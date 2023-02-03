@@ -2,7 +2,7 @@
 
 Circuits for Proof Of Solvency.
 
-The circuit, written in circom, enforces the rules that the Exchange must abide by when generating a Proof Of Solvency for a specific user. 
+The circuit, written in circom, enforces the rules that the Exchange must abide by when generating a Proof Of Solvency for a specific user.
 
 The circuit checks that: 
 
