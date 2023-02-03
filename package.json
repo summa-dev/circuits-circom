@@ -5,12 +5,12 @@
     "circom_tester": "^0.0.19",
     "circomlib": "^2.0.5",
     "circomlibjs": "^0.0.8",
-    "pyt-merkle-sum-tree": "^0.0.10",
+    "pyt-merkle-sum-tree": "^0.0.21",
     "snarkjs": "^0.5.0"
   },
   "name": "pyt-circuits",
   "description": "circuits, written in circom, for pan-y-tomate proof of solvency",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "test": "mocha",
     "build": "bash scripts/build.sh"
@@ -31,5 +31,8 @@
   "bugs": {
     "url": "https://github.com/pan-y-tomate/pyt-circuits/issues"
   },
-  "homepage": "https://github.com/pan-y-tomate/pyt-circuits#readme"
+  "homepage": "https://github.com/pan-y-tomate/pyt-circuits#readme",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
 }

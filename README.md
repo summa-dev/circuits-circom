@@ -61,6 +61,11 @@ A proof generated using the circuit, even if verified, doesn't ensure that the p
 - The `assetsSum` (input of the circuit) must be the total assets of the exchange. The way in which the exchange generates its proof of assets is out of the scope of this project.
 - The `leafHash` (output of the circuit) must equal to `H(username, balance)` that contains the data of the user to which the proof is being generated for
 
+## Required Dependency 
+
+- [circom](
+
+
 ## Build
 
 In order to compile the circuit, execute the trusted setup, generate the proof (and verify it) using groth16 as proving system run from the root directory:
@@ -124,3 +129,5 @@ The artifacts generated during the Trusted Setup are publicly available :
 - proving key zkey `wget https://pan-y-tomate.s3.eu-west-3.amazonaws.com/pyt-pos-16_final.zkey`
 - circuit wasm `wget  https://pan-y-tomate.s3.eu-west-3.amazonaws.com/pyt-pos-16.wasm`
 - verification key vkey `wget https://pan-y-tomate.s3.eu-west-3.amazonaws.com/vkey.json`
+
+Arficats for further merkle tree levels will be available soon.
