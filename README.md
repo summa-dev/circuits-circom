@@ -61,14 +61,20 @@ A proof generated using the circuit, even if verified, doesn't ensure that the p
 - The `assetsSum` (input of the circuit) must be the total assets of the exchange. The way in which the exchange generates its proof of assets is out of the scope of this project.
 - The `leafHash` (output of the circuit) must equal to `H(username, balance)` that contains the data of the user to which the proof is being generated for
 
-## Required Dependency 
+## Setup 
 
-- [circom](
+- Rust
+- circom
+- NodeJS
+- NPM
+- SnarkJS
+- Various C++ Deps such as `build-essential libgmp-dev libsodium-dev nlohmann-json3-dev nasm git`
 
+NB: The circuit uses C++ for faster witness computation. This requires a machine with INTEL CPU. If you are using an ARM CPU, you can use a [AWS EC2](https://aws.amazon.com/ec2/) instance. Here you can find my [setup script](https://hackmd.io/jyIATznYShOlFEWG6dkrpA?edit).
 
 ## Build
 
-In order to compile the circuit, execute the trusted setup, generate the proof (and verify it) using groth16 as proving system run from the root directory:
+In order to compile the circuit, execute the trusted setup, compute the witness with c++, generate the proof (and verify it) using groth16 as proving system run from the root directory:
 
 	```bash
 	npm run build 
@@ -134,4 +140,7 @@ Arficats for further merkle tree levels will be available soon.
 
 - [ ] Specify how to pass inputs for build script. Check iden3 repo for example
 'bash scripts/build.sh 17 hash' 
-- [ ] Specify the setup needed to run the setup script
+- [x] Specify the setup needed to run the setup script
+- [ ] Test out script in production environment. Also I need to remove the need for changing the github branch.
+- [ ] Do the test with smaller circuits.
+
