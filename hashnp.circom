@@ -14,7 +14,7 @@ template MerkleTreeBuilder() {
     // Instantiate all hashers components;
     var i;
     for (i=0; i < 500; i++) {
-        hashers[i] = parallel HashLeftRight();
+        hashers[i] = HashLeftRight();
         hashers[i].left <== leaves[i*2];
         hashers[i].right <== leaves[i*2+1];
     }

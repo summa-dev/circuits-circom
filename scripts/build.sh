@@ -1,14 +1,14 @@
 #!/bin/bash
-PHASE1=powersOfTau28_hez_final_14.ptau
+PHASE1=powersOfTau28_hez_final_$1.ptau
 BUILD_DIR=./build
-CIRCUIT_PATH=./scripts/input/pyt-pos-16.circom
-CIRCUIT_NAME=pyt-pos-16
+CIRCUIT_PATH=./scripts/input/$2.circom
+CIRCUIT_NAME=$2
 
 if [ -f "$PHASE1" ]; then
     echo "Found Phase 1 ptau file"
 else
-    echo "No Phase 1 ptau file found. downloading powersOfTau28_hez_final_14.ptau ..."
-    wget https://hermez.s3-eu-west-1.amazonaws.com/powersOfTau28_hez_final_14.ptau
+    echo "No Phase 1 ptau file found. downloading $PHASE1 ..."
+    wget https://hermez.s3-eu-west-1.amazonaws.com/"$PHASE1"
 fi
 
 if [ ! -d "$BUILD_DIR" ]; then
@@ -18,13 +18,28 @@ fi
 
 echo "****COMPILING CIRCUIT****"
 start=`date +%s`
-circom "$CIRCUIT_PATH" --r1cs --wasm --sym --wat --output "$BUILD_DIR"
+circom "$CIRCUIT_PATH" --r1cs --c --sym --wat --output "$BUILD_DIR"
+end=`date +%s`
+echo "DONE ($((end-start))s)"
+
+echo "****BUILD INPUT****"
+start=`date +%s
+node input.js
+end=`date +%s`
+echo "DONE ($((end-start))s)"
+
+echo "****BUILD C++ WITNESS GENERATOR****"
+start=`date +%s`
+cd "$BUILD_DIR"/"$CIRCUIT_NAME"_cpp
+make
 end=`date +%s`
 echo "DONE ($((end-start))s)"
 
 echo "****GENERATING WITNESS FOR SAMPLE INPUT****"
 start=`date +%s`
-node "$BUILD_DIR"/"$CIRCUIT_NAME"_js/generate_witness.js "$BUILD_DIR"/"$CIRCUIT_NAME"_js/"$CIRCUIT_NAME".wasm scripts/input/sample-input-16.json "$BUILD_DIR"/witness.wtns
+cd ..
+cd ..
+/"$BUILD_DIR"/"$CIRCUIT_NAME"_cpp/"$CIRCUIT_NAME" input.json "$BUILD_DIR"/"$CIRCUIT_NAME"_cpp/witness.wtns
 end=`date +%s`
 echo "DONE ($((end-start))s)"
 
@@ -37,7 +52,7 @@ echo "DONE ($((end-start))s)"
 echo "****GENERATING ZKEY 0****"
 start=`date +%s`
 set -x
-snarkjs groth16 setup  "$BUILD_DIR"/"$CIRCUIT_NAME".r1cs "$PHASE1" "$BUILD_DIR"/"$CIRCUIT_NAME"_0.zkey -v
+snarkjs groth16 setup "$BUILD_DIR"/"$CIRCUIT_NAME".r1cs "$PHASE1" "$BUILD_DIR"/"$CIRCUIT_NAME"_0.zkey -v
 end=`date +%s`
 echo "DONE ($((end-start))s)"
 
