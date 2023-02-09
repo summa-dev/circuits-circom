@@ -1,8 +1,9 @@
 #!/bin/bash
 PHASE1=powersOfTau28_hez_final_$1.ptau
 BUILD_DIR=./build
-CIRCUIT_PATH=./scripts/input/$2.circom
+CIRCUIT_PATH=$2.circom
 CIRCUIT_NAME=$2
+export NODE_OPTIONS=--max-old-space-size=120480000
 
 if [ -f "$PHASE1" ]; then
     echo "Found Phase 1 ptau file"
@@ -23,7 +24,7 @@ end=`date +%s`
 echo "DONE ($((end-start))s)"
 
 echo "****BUILD INPUT****"
-start=`date +%s
+start=`date +%s`
 node input.js
 end=`date +%s`
 echo "DONE ($((end-start))s)"
@@ -39,7 +40,7 @@ echo "****GENERATING WITNESS FOR SAMPLE INPUT****"
 start=`date +%s`
 cd ..
 cd ..
-/"$BUILD_DIR"/"$CIRCUIT_NAME"_cpp/"$CIRCUIT_NAME" input.json "$BUILD_DIR"/"$CIRCUIT_NAME"_cpp/witness.wtns
+"$BUILD_DIR"/"$CIRCUIT_NAME"_cpp/"$CIRCUIT_NAME" input.json "$BUILD_DIR"/witness.wtns
 end=`date +%s`
 echo "DONE ($((end-start))s)"
 

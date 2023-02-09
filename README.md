@@ -71,7 +71,7 @@ A proof generated using the circuit, even if verified, doesn't ensure that the p
 In order to compile the circuit, execute the trusted setup, generate the proof (and verify it) using groth16 as proving system run from the root directory:
 
 	```bash
-	npm run build
+	npm run build 
 	```
 
 The script will:
@@ -131,3 +131,7 @@ The artifacts generated during the Trusted Setup are publicly available :
 - verification key vkey `wget https://pan-y-tomate.s3.eu-west-3.amazonaws.com/vkey.json`
 
 Arficats for further merkle tree levels will be available soon.
+
+- [ ] Specify how to pass inputs for build script. Check iden3 repo for example
+'bash scripts/build.sh 17 hash' 
+- [ ] Specify the setup needed to run the setup script
