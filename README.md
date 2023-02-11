@@ -143,4 +143,14 @@ Arficats for further merkle tree levels will be available soon.
 - [x] Specify the setup needed to run the setup script
 - [ ] Test out script in production environment. Also I need to remove the need for changing the github branch.
 - [ ] Do the test with smaller circuits.
+- [ ] Rename to proof of liabilities
 
+
+2^27 leaves to support username of coinbase => 108 M.
+
+1 level => 1266 constraints = 1266 * 2^0 
+4 levels => 11808 constraints
+5 levels => 23856 constraints
+6 levels => 47952 constraints
+7 levels => 96144 constraints
+27 levels => 84 959 821 824 constraints. 84 MLD constraints.
